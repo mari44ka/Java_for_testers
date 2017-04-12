@@ -12,13 +12,13 @@ public class MyFirstProgram {
     System.out.println("Hello, world");
 
 
-    Point p1 = new Point();
-    p1.x=0;
-    p1.y=0;
+    Point p1 = new Point(0,0);
+    //p1.x=0;
+    //p1.y=0;
 
-    Point p2 = new Point();
-    p2.x=5;
-    p2.y=0;
+    Point p2 = new Point(5,0);
+    //p2.x=5;
+    //p2.y=0;
 
     System.out.println("Расстояние между двумя точками " + "("+(p1.x+p1.y)+")" +" и "+"("+(p2.x+p2.y)+")"+" = "+distance(p1,p2));
 
