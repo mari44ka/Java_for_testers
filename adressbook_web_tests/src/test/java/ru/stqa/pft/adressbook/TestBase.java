@@ -83,6 +83,14 @@ public class TestBase {
     wd.findElement(By.name("new")).click();
   }
 
+  protected void deletegroup() {
+      wd.findElement(By.name("delete")).click();
+  }
+
+  protected void selectgroup() {
+      wd.findElement(By.name("selected[]")).click();
+  }
+
   protected void Gotogrouppage() {
     wd.findElement(By.linkText("groups")).click();
   }
