@@ -4,21 +4,17 @@ import org.testng.annotations.Test;
 
 import org.openqa.selenium.*;
 
-public class GroupCreationtests extends TestBase{
-
+public class ContactCreationstests extends TestBase{
 
   @Test
-  public void testGroupCreation() {
-
-    Gotogrouppage();
-    createNewGroup();
-    fillForm(new GroupData("Test1", "test2", "test3"));
+  public void testCreateContact() {
+    addNewContact();
+    fillForm(new Contactdata("Tanya", "Good", "510345123"));
     submitForm();
-    Gotogrouppage();
+    returnHomepage();
   }
 
   protected void submitForm() {
     wd.findElement(By.name("submit")).click();
   }
 }
-
