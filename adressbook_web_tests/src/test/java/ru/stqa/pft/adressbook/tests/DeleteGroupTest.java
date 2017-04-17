@@ -1,4 +1,4 @@
-package ru.stqa.pft.adressbook;
+package ru.stqa.pft.adressbook.tests;
 
 import org.testng.annotations.Test;
 
@@ -8,10 +8,10 @@ public class DeleteGroupTest extends TestBase {
     @Test
     public void testDeleteGroup() {
 
-        Gotogrouppage();
-        selectgroup();
-        deletegroup();
-        Gotogrouppage();
+        app.Gotogrouppage();
+        app.selectgroup();
+        app.deletegroup();
+        app.Gotogrouppage();
     }
 
 
