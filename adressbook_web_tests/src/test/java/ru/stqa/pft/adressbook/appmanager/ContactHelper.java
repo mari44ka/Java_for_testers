@@ -29,4 +29,16 @@ public class ContactHelper extends HelperBase {
   public void submitContactform() {
     click(By.name("submit"));
   }
+
+  public void selectContact() {
+    click(By.name("selected[]"));
+  }
+
+  public void submitContactDelete() {
+    click(By.cssSelector("input[type ='button'][value ='Delete']"));
+  }
+
+  public void submitAlertWindow() {
+    wd.switchTo().alert().accept();
+  }
 }

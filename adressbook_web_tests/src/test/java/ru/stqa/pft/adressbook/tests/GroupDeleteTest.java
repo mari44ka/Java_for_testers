@@ -2,7 +2,7 @@ package ru.stqa.pft.adressbook.tests;
 
 import org.testng.annotations.Test;
 
-public class DeleteGroupTest extends TestBase {
+public class GroupDeleteTest extends TestBase {
 
     
     @Test
