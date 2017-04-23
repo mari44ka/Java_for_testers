@@ -9,6 +9,7 @@ import org.openqa.selenium.remote.BrowserType;
 import org.openqa.selenium.safari.SafariDriver;
 
 
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 
@@ -33,13 +34,13 @@ public class ApplicationManager {
 
 
   public void init() {
-    if (browser ==BrowserType.FIREFOX){
+    if (Objects.equals(browser, BrowserType.FIREFOX)){
       wd = new FirefoxDriver();
-    } else if (browser == BrowserType.CHROME){
+    } else if (Objects.equals(browser, BrowserType.CHROME)){
       System.setProperty("webdriver.chrome.driver", "/Users/Mari/Downloads/chromedriver");
       wd =new ChromeDriver();
 
-    } else if (browser == BrowserType.SAFARI){
+    } else if (Objects.equals(browser, BrowserType.SAFARI)){
 
       wd = new SafariDriver();
     }
