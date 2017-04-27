@@ -14,3 +14,5 @@ gradle-app.setting
 # gradle/wrapper/gradle-wrapper.properties
 
 .idea/workspace.xml
+
+adressbook_web_tests/src/test/java/ru/stqa/pft/adressbook/appmanager/ApplicationManager.java
