@@ -16,10 +16,17 @@ public class NavigationHelper extends HelperBase {
   }
 
   public void Gotogrouppage() {
+    if (elementIsPresent(By.tagName("h1"))
+      && wd.findElement(By.tagName("h1")).getText().equals("Groups")
+      && elementIsPresent(By.name("new"))) {
+      return;
+    }
     click(By.linkText("groups"));
   }
 
   public void returnHomepage() {
+    if (elementIsPresent(By.id("maintable")))
+      return;
     click(By.linkText("home"));
   }
 }
