@@ -94,4 +94,17 @@ public class ContactHelper extends HelperBase {
     return contacts;
   }
 
+  public void modifyContact(int index, Contactdata contact) {
+    selectContact(index);
+    initEdit();
+    fillForm(contact,false);
+    submitContactEdit();
+  }
+
+  public void deleteContact(int index) {
+    selectContact(index);
+    submitContactDelete();
+    submitAlertWindow();
+  }
+
 }
