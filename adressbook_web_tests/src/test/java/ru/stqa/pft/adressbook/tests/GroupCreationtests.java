@@ -13,14 +13,14 @@ public class GroupCreationtests extends TestBase {
 
   @Test
   public void testGroupCreation() {
-    app.getNavigationHelper().Gotogrouppage();
-    List<GroupData> before = app.getGroupHelper().getGroupList(); // переменная before поменялось,
+    app.goTo().grouppage();
+    List<GroupData> before = app.getGroupHelper().list(); // переменная before поменялось,
     // теперь она содержит не количество элементов, а список
     //int before=app.getGroupHelper().getGroupCount(); // узнаем количество групп до добавления
     GroupData group = new GroupData("Test4", "test2", "test3");
-    app.getGroupHelper().createGroup(group);
-    app.getNavigationHelper().Gotogrouppage();
-    List<GroupData> after = app.getGroupHelper().getGroupList();
+    app.getGroupHelper().create(group);
+    app.goTo().grouppage();
+    List<GroupData> after = app.getGroupHelper().list();
     //int after = app.getGroupHelper().getGroupCount(); // узнаем количество групп после добавления
     Assert.assertEquals(after.size(), before.size() + 1);// проверка, что группа добавилась;
     // когда меняем переменную after, меняется на after.size()

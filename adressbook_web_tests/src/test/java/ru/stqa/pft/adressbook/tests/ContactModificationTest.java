@@ -16,16 +16,16 @@ public class ContactModificationTest extends TestBase {
 
   @BeforeMethod
   public void ensurePreconditions(){
-    app.getNavigationHelper().Gotogrouppage();
+    app.goTo().grouppage();
     if (!app.getGroupHelper().isThereGroup()
-            && !app.getContactHelper().isThereContact()) {
-      app.getGroupHelper().createGroup(new GroupData("Test1", "test2", "test3"));
-      app.getContactHelper().createContact(new Contactdata("Tanya", "Good", "510345123", "Google", "Test1"), true);
+            && !app.contact().isThereContact()) {
+      app.getGroupHelper().create(new GroupData("Test1", "test2", "test3"));
+      app.contact().create(new Contactdata("Tanya", "Good", "510345123", "Google", "Test1"), true);
     }
     else
     if (app.getGroupHelper().isThereGroup()
-            && !app.getContactHelper().isThereContact()) {
-      app.getContactHelper().createContact(new Contactdata("Tanya", "Good", "510345123", "Google", "Test1"), true);
+            && !app.contact().isThereContact()) {
+      app.contact().create(new Contactdata("Tanya", "Good", "510345123", "Google", "Test1"), true);
     }
   }
 
@@ -33,14 +33,14 @@ public class ContactModificationTest extends TestBase {
   @Test
 
   public void testContactModification(){
-    app.getNavigationHelper().returnHomepage();
-    List<Contactdata> before = app.getContactHelper().getContactList();
+    app.goTo().homepage();
+    List<Contactdata> before = app.contact().list();
     int index= before.size()-1;
-    Contactdata contact = new Contactdata(before.get(index).getId(),"Olya","Good", null,null,null);
+    Contactdata contact = new Contactdata(before.get(index).getId(),"Ulya","Good", null,null,null);
     //сохраняем старый модификатор
-    app.getContactHelper().modifyContact(index, contact);
-    app.getNavigationHelper().returnHomepage();
-    List<Contactdata> after= app.getContactHelper().getContactList();
+    app.contact().modify(index, contact);
+    app.goTo().homepage();
+    List<Contactdata> after= app.contact().list();
 
     Assert.assertEquals(before.size(),after.size());
 

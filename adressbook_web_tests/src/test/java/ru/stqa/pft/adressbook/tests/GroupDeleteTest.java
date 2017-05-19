@@ -11,9 +11,9 @@ public class GroupDeleteTest extends TestBase {
 
     @BeforeMethod
     public void esurePreconditions() {
-        app.getNavigationHelper().Gotogrouppage();
-        if (!app.getGroupHelper().isThereGroup()) {
-            app.getGroupHelper().createGroup(new GroupData("Test2", "test2", "test3"));
+        app.goTo().grouppage();
+        if (app.getGroupHelper().list().size()==0) {
+            app.getGroupHelper().create(new GroupData("Test2", "test2", "test3"));
 
         }
     }
@@ -21,17 +21,17 @@ public class GroupDeleteTest extends TestBase {
     
     @Test
     public void testDeleteGroup() {
-        List<GroupData> before=app.getGroupHelper().getGroupList();
+        List<GroupData> before=app.getGroupHelper().list();
 
         //int before = app.getGroupHelper().getGroupCount();
-        app.getNavigationHelper().Gotogrouppage();
-        app.getGroupHelper().selectgroup(before.size()-1);
-        app.getGroupHelper().deletegroup();
-        app.getNavigationHelper().Gotogrouppage();
-        List<GroupData> after=app.getGroupHelper().getGroupList();
-        Assert.assertEquals(after.size(),before.size()-1);
+        int index=before.size()-1;
+        app.goTo().grouppage();
+        app.getGroupHelper().delete(index);
+        app.goTo().grouppage();
+        List<GroupData> after=app.getGroupHelper().list();
+        Assert.assertEquals(after.size(),index);
 
-        before.remove(before.size()-1); // переменная before теперь ссылается на старый список, в котором удален ненужный элемент
+        before.remove(index); // переменная before теперь ссылается на старый список, в котором удален ненужный элемент
 
         Assert.assertEquals(before,after);
 
