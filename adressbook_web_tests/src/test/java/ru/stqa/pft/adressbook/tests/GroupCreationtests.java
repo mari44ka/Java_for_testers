@@ -17,7 +17,7 @@ public class GroupCreationtests extends TestBase {
     List<GroupData> before = app.getGroupHelper().list(); // переменная before поменялось,
     // теперь она содержит не количество элементов, а список
     //int before=app.getGroupHelper().getGroupCount(); // узнаем количество групп до добавления
-    GroupData group = new GroupData("Test4", "test2", "test3");
+    GroupData group = new GroupData().withName("Test4").withHeader("test2").withFooter("test3");
     app.getGroupHelper().create(group);
     app.goTo().grouppage();
     List<GroupData> after = app.getGroupHelper().list();
@@ -32,7 +32,7 @@ public class GroupCreationtests extends TestBase {
 
     //Comparator<? super GroupData> byId = (Comparator<GroupData>) (o1, o2) -> Integer.compare(o1.getId(),o2.getId());
     int max =after.stream().max((o1, o2) -> Integer.compare(o1.getId(),o2.getId())).get().getId();
-    group.setId(max);
+    group.withId(max);
     before.add(group);
     Assert.assertEquals(new HashSet<Object>(before),new HashSet<Object>(after));
 

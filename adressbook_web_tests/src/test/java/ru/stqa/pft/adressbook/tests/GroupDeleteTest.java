@@ -13,7 +13,7 @@ public class GroupDeleteTest extends TestBase {
     public void esurePreconditions() {
         app.goTo().grouppage();
         if (app.getGroupHelper().list().size()==0) {
-            app.getGroupHelper().create(new GroupData("Test2", "test2", "test3"));
+            app.getGroupHelper().create(new GroupData().withName("Test2").withHeader("test2").withFooter("test3")); //using fluent interface
 
         }
     }

@@ -17,7 +17,7 @@ public class GroupModificationtest extends TestBase {
   public void esurePreconditions() {
     app.goTo().grouppage();
     if (!app.getGroupHelper().isThereGroup()) {
-      app.getGroupHelper().create(new GroupData("Test2", "test2", "test3"));
+      app.getGroupHelper().create(new GroupData().withName("Test2").withHeader("test2").withFooter("test3"));
 
     }
   }
@@ -29,7 +29,7 @@ public class GroupModificationtest extends TestBase {
     List<GroupData> before = app.getGroupHelper().list();
     //int before=app.getGroupHelper().getGroupCount();
     int index = before.size() - 1;
-    GroupData group = new GroupData(before.get(index).getId(), "Test1", "test3", null);
+    GroupData group = new GroupData().withId(before.get(index).getId()).withName("Test1").withHeader("test3");
     app.getGroupHelper().modify(index, group);
     app.goTo().grouppage();
     List<GroupData> after = app.getGroupHelper().list();
