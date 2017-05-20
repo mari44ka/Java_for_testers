@@ -20,12 +20,12 @@ public class ContactModificationTest extends TestBase {
     if (!app.getGroupHelper().isThereGroup()
             && !app.contact().isThereContact()) {
       app.getGroupHelper().create(new GroupData().withName("Test1").withHeader("test2").withFooter("test3"));
-      app.contact().create(new Contactdata("Tanya", "Good", "510345123", "Google", "Test1"), true);
+      app.contact().create(new Contactdata().withFirstname("Tanya").withLastname("Good").withGroup("Test1"), true);
     }
     else
     if (app.getGroupHelper().isThereGroup()
             && !app.contact().isThereContact()) {
-      app.contact().create(new Contactdata("Tanya", "Good", "510345123", "Google", "Test1"), true);
+      app.contact().create(new Contactdata().withFirstname("Tanya").withLastname("Good").withGroup("Test1"), true);
     }
   }
 
@@ -36,7 +36,7 @@ public class ContactModificationTest extends TestBase {
     app.goTo().homepage();
     List<Contactdata> before = app.contact().list();
     int index= before.size()-1;
-    Contactdata contact = new Contactdata(before.get(index).getId(),"Ulya","Good", null,null,null);
+    Contactdata contact = new Contactdata().withId(before.get(index).getId()).withFirstname("Ulya").withLastname("Good");
     //сохраняем старый модификатор
     app.contact().modify(index, contact);
     app.goTo().homepage();

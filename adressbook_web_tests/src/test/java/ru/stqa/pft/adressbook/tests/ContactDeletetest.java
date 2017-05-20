@@ -19,10 +19,10 @@ public class ContactDeletetest extends TestBase {
     if (!app.getGroupHelper().isThereGroup()
             && !app.contact().isThereContact()) {
       app.getGroupHelper().create(new GroupData().withName("Test1").withHeader("test2").withFooter("test3"));
-      app.contact().create(new Contactdata("Tanya", "Good", "510345123", "Google", "Test1"), true);
+      app.contact().create(new Contactdata().withFirstname("Tanya").withLastname("Good").withGroup("Test1"), true);
     } else if (app.getGroupHelper().isThereGroup()
             && !app.contact().isThereContact()) {
-      app.contact().create(new Contactdata("Tanya", "Good", "510345123", "Google", "Test1"), true);
+      app.contact().create(new Contactdata().withFirstname("Tanya").withLastname("Good").withGroup("Test1"), true);
     }
   }
 

@@ -2,32 +2,60 @@ package ru.stqa.pft.adressbook.model;
 
 public class Contactdata {
   private int id;
-  private final String firstname;
-  private final String lastname;
-  private final String homephone;
+  private  String firstname;
+  private  String lastname;
+  private String homephone;
+
+  public Contactdata withFirstname(String firstname) {
+    this.firstname = firstname;
+    return this;
+  }
+
+  public Contactdata withLastname(String lastname) {
+    this.lastname = lastname;
+    return this;
+  }
+
+  public Contactdata withHomephone(String homephone) {
+    this.homephone = homephone;
+    return this;
+  }
+
   private String company;
   private String group;
 
-  public Contactdata(String firstname, String lastname, String homephone,String company,String group) {
-    this.id=0;
-    this.firstname = firstname;
-    this.lastname = lastname;
-    this.homephone = homephone;
+ // public Contactdata(String firstname, String lastname, String homephone,String company,String group) {
+    //this.id=0;
+    //this.firstname = firstname;
+    //this.lastname = lastname;
+    //this.homephone = homephone;
+    //this.company = company;
+    //this.group = group;
+  //}
+
+  //public Contactdata(int id,String firstname, String lastname, String homephone,String company,String group) {
+    //this.id = id;
+    //this.firstname = firstname;
+    //this.lastname = lastname;
+    //this.homephone = homephone;
+    //this.company = company;
+    //this.group = group;
+  //}
+
+  public Contactdata withCompany(String company) {
     this.company = company;
-    this.group = group;
+    return this;
   }
 
-  public Contactdata(int id,String firstname, String lastname, String homephone,String company,String group) {
-    this.id = id;
-    this.firstname = firstname;
-    this.lastname = lastname;
-    this.homephone = homephone;
-    this.company = company;
+  public Contactdata withGroup(String group) {
     this.group = group;
+    return this;
   }
 
-  public void setId(int id) {
+  public Contactdata withId(int id) {
+
     this.id = id;
+    return this;
   }
 
   @Override
