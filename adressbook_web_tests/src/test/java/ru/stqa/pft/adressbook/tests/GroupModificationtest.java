@@ -7,6 +7,7 @@ import ru.stqa.pft.adressbook.model.GroupData;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Mari on 4/18/17.
@@ -26,19 +27,20 @@ public class GroupModificationtest extends TestBase {
   @Test
   public void testGroupModification() {
     app.goTo().grouppage();
-    List<GroupData> before = app.getGroupHelper().list();
+    Set<GroupData> before = app.getGroupHelper().all();
     //int before=app.getGroupHelper().getGroupCount();
-    int index = before.size() - 1;
-    GroupData group = new GroupData().withId(before.get(index).getId()).withName("Test1").withHeader("test3");
-    app.getGroupHelper().modify(index, group);
+    GroupData modifiedGroup =before.iterator().next();
+
+    GroupData group = new GroupData().withId(modifiedGroup.getId()).withName("Test1").withHeader("test3");
+    app.getGroupHelper().modify(group);
     app.goTo().grouppage();
-    List<GroupData> after = app.getGroupHelper().list();
+    Set<GroupData> after = app.getGroupHelper().all();
     //int after=app.getGroupHelper().getGroupCount();
     Assert.assertEquals(before.size(), after.size());
-    before.remove(index);
+    before.remove(modifiedGroup);
     before.add(group);
 
-    Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));// преобразование в множества
+    Assert.assertEquals(before,after);// преобразование в множества
   }
 }
 

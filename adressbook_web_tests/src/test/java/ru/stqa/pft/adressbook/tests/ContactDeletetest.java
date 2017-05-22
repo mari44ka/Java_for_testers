@@ -7,6 +7,7 @@ import ru.stqa.pft.adressbook.model.Contactdata;
 import ru.stqa.pft.adressbook.model.GroupData;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Mari on 4/18/17.
@@ -30,15 +31,16 @@ public class ContactDeletetest extends TestBase {
 
   public void testContactDelete() {
     app.goTo().homepage();
-    List<Contactdata>before=app.contact().list();
-    int index = before.size()-1;
-    app.contact().delete(index);
+    Set<Contactdata> before=app.contact().all();
+    Contactdata deletedContact = before.iterator().next();
+    //int index = before.size()-1;
+    app.contact().delete(deletedContact);
     app.goTo().homepage();
-    List<Contactdata> after = app.contact().list();
+    Set<Contactdata> after = app.contact().all();
 
-    Assert.assertEquals(after.size(),index);
+    Assert.assertEquals(after.size(),before.size()-1);
 
-    before.remove(index);
+    before.remove(deletedContact);
     Assert.assertEquals(before,after);
     }
 

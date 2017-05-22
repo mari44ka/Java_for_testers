@@ -6,7 +6,9 @@ import org.openqa.selenium.WebElement;
 import ru.stqa.pft.adressbook.model.GroupData;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Mari on 4/17/17.
@@ -41,6 +43,11 @@ public class GroupHelper extends HelperBase {
     wd.findElements(By.name("selected[]")).get(index).click(); //we can select any group we want
   }
 
+  public void selectGroupbyId(int id) {
+
+    wd.findElement(By.cssSelector("input[value='"+id+"']")).click(); //we can select any group we want
+  }
+
   public void submitGroupForm() {
     click(By.name("submit"));
   }
@@ -64,11 +71,12 @@ public class GroupHelper extends HelperBase {
     return elementIsPresent(By.name("selected[]"));
   }
 
-  public List<GroupData> list() {
-    List<GroupData> groups = new ArrayList<GroupData>();
+
+  public Set<GroupData> all() {
+    Set<GroupData> groups = new HashSet<GroupData>();
     List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
-    for (WebElement element : elements){
-      String name =element.getText();
+    for (WebElement element : elements) {
+      String name = element.getText();
       //String id = element.findElement(By.tagName("input")).getAttribute("value");
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
       GroupData group = new GroupData().withId(id).withName(name);
@@ -76,10 +84,31 @@ public class GroupHelper extends HelperBase {
     }
     return groups;
   }
+
+  public List<GroupData> list () {
+      List<GroupData> groups = new ArrayList<GroupData>();
+      List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
+      for (WebElement element : elements) {
+        String name = element.getText();
+        //String id = element.findElement(By.tagName("input")).getAttribute("value");
+        int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+        GroupData group = new GroupData().withId(id).withName(name);
+        groups.add(group);
+      }
+      return groups;
+    }
+
+
   public void delete(int index) {
     selectgroup(index);
     deletegroup();
   }
+
+  public void delete(GroupData group) {
+    selectGroupbyId(group.getId());
+    deletegroup();
+  }
+
   public void modify(int index, GroupData group) {
     selectgroup(index);
     initGroupModification();
@@ -88,5 +117,12 @@ public class GroupHelper extends HelperBase {
 
   }
 
+
+  public void modify(GroupData group) {
+    selectGroupbyId(group.getId());
+    initGroupModification();
+    fillForm(group);
+    submitGroupModification();
+  }
 }
 

@@ -9,7 +9,9 @@ import org.testng.Assert;
 import ru.stqa.pft.adressbook.model.Contactdata;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Mari on 4/18/17.
@@ -50,6 +52,10 @@ public class ContactHelper extends HelperBase {
 
   public void selectContact(int index) {
     wd.findElements(By.name("selected[]")).get(index).click();
+  }
+
+  public void selectContactById(int id) {
+    wd.findElement(By.cssSelector("input[value='"+id+"']")).click();
   }
 
   public void submitContactDelete() {
@@ -93,6 +99,19 @@ public class ContactHelper extends HelperBase {
     }
     return contacts;
   }
+  public Set<Contactdata> all() {
+    Set<Contactdata> contacts = new HashSet<Contactdata>();
+    List<WebElement> elements = wd.findElements(By.name("entry"));
+    for (WebElement element : elements) {
+      List<WebElement> cells = element.findElements(By.tagName("td"));
+      String firstname = cells.get(2).getText();
+      String lastname =cells.get(1).getText();
+      int id =Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+      Contactdata contact = new Contactdata().withId(id).withFirstname(firstname).withLastname(lastname);
+      contacts.add(contact);
+    }
+    return contacts;
+  }
 
   public void modify(int index, Contactdata contact) {
     selectContact(index);
@@ -107,4 +126,17 @@ public class ContactHelper extends HelperBase {
     submitAlertWindow();
   }
 
+  public void delete(Contactdata contact) {
+    selectContactById(contact.getId());
+    submitContactDelete();
+    submitAlertWindow();
+  }
+
+  public void modify(Contactdata contact) {
+    selectContactById(contact.getId());
+    initEdit();
+    fillForm(contact,false);
+    submitContactEdit();
+
+  }
 }

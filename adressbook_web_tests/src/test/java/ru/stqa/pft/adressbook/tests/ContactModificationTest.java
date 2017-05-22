@@ -8,6 +8,7 @@ import ru.stqa.pft.adressbook.model.GroupData;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Mari on 4/19/17.
@@ -34,17 +35,18 @@ public class ContactModificationTest extends TestBase {
 
   public void testContactModification(){
     app.goTo().homepage();
-    List<Contactdata> before = app.contact().list();
-    int index= before.size()-1;
-    Contactdata contact = new Contactdata().withId(before.get(index).getId()).withFirstname("Ulya").withLastname("Good");
+    Set<Contactdata> before = app.contact().all();
+    Contactdata modifiedContact = before.iterator().next();
+    //int index= before.size()-1;
+    Contactdata contact = new Contactdata().withId(modifiedContact.getId()).withFirstname("Ulya").withLastname("Good");
     //сохраняем старый модификатор
-    app.contact().modify(index, contact);
+    app.contact().modify(contact);
     app.goTo().homepage();
     List<Contactdata> after= app.contact().list();
 
     Assert.assertEquals(before.size(),after.size());
 
-    before.remove(index);
+    before.remove(modifiedContact);
     before.add(contact);
     Assert.assertEquals(new HashSet<Object>(before),new HashSet<Object>(after)); // модификация в множества
 

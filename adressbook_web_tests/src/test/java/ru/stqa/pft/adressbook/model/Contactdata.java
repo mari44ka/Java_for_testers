@@ -40,27 +40,9 @@ public class Contactdata {
     //this.homephone = homephone;
     //this.company = company;
     //this.group = group;
-  //}
-
-  public Contactdata withCompany(String company) {
-    this.company = company;
-    return this;
-  }
-
-  public Contactdata withGroup(String group) {
-    this.group = group;
-    return this;
-  }
-
-  public Contactdata withId(int id) {
-
-    this.id = id;
-    return this;
-  }
 
   @Override
   public boolean equals(Object o) {
-
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
 
@@ -77,6 +59,23 @@ public class Contactdata {
     result = 31 * result + (firstname != null ? firstname.hashCode() : 0);
     result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
     return result;
+  }
+  //}
+
+  public Contactdata withCompany(String company) {
+    this.company = company;
+    return this;
+  }
+
+  public Contactdata withGroup(String group) {
+    this.group = group;
+    return this;
+  }
+
+  public Contactdata withId(int id) {
+
+    this.id = id;
+    return this;
   }
 
   @Override
