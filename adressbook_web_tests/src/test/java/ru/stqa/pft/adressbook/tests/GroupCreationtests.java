@@ -1,13 +1,20 @@
 package ru.stqa.pft.adressbook.tests;
 
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import ru.stqa.pft.adressbook.model.GroupData;
+import ru.stqa.pft.adressbook.model.Groups;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.*;
+import static org.testng.Assert.assertEquals;
 
 public class GroupCreationtests extends TestBase {
 
@@ -15,17 +22,17 @@ public class GroupCreationtests extends TestBase {
   @Test
   public void testGroupCreation() {
     app.goTo().grouppage();
-    Set<GroupData> before = app.getGroupHelper().all(); //теперь работаем с множеством, а не списками
+    Groups before = app.getGroupHelper().all(); //теперь работаем с множеством, а не списками
     //List<GroupData> before = app.getGroupHelper().list(); // переменная before поменялось,
     // теперь она содержит не количество элементов, а список
     //int before=app.getGroupHelper().getGroupCount(); // узнаем количество групп до добавления
     GroupData group = new GroupData().withName("Test4").withHeader("test2").withFooter("test3");
     app.getGroupHelper().create(group);
     app.goTo().grouppage();
-    Set<GroupData> after = app.getGroupHelper().all();
+    Groups after = app.getGroupHelper().all();
     //List<GroupData> after = app.getGroupHelper().list();
     //int after = app.getGroupHelper().getGroupCount(); // узнаем количество групп после добавления
-    Assert.assertEquals(after.size(), before.size() + 1);// проверка, что группа добавилась;
+    assertThat(after.size(), equalTo(before.size() + 1));// проверка, что группа добавилась;
     // когда меняем переменную after, меняется на after.size()
 
     //int max =0;
@@ -37,10 +44,12 @@ public class GroupCreationtests extends TestBase {
    // int max =after.stream().max((o1, o2) -> Integer.compare(o1.getId(),o2.getId())).get().getId();
    // group.withId(max);
 
-    group.withId(after.stream().mapToInt((g)-> g.getId()).max().getAsInt());
-    before.add(group);
+
+    //before.add(group);
     //Assert.assertEquals(new HashSet<Object>(before),new HashSet<Object>(after));
-    Assert.assertEquals(before,after); // множествами нам надо перегенерировать метод equals
+   // Assert.assertEquals(before,after); // множествами нам надо перегенерировать метод equals
+
+    assertThat(after, equalTo(before.withAdded(group.withId(after.stream().mapToInt((g)-> g.getId()).max().getAsInt()))));
 
 
   }

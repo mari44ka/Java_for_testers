@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.adressbook.model.Contactdata;
+import ru.stqa.pft.adressbook.model.Contacts;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -99,8 +100,8 @@ public class ContactHelper extends HelperBase {
     }
     return contacts;
   }
-  public Set<Contactdata> all() {
-    Set<Contactdata> contacts = new HashSet<Contactdata>();
+  public Contacts all() {
+    Contacts contacts = new Contacts();
     List<WebElement> elements = wd.findElements(By.name("entry"));
     for (WebElement element : elements) {
       List<WebElement> cells = element.findElements(By.tagName("td"));
