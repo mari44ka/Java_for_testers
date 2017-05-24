@@ -22,13 +22,13 @@ public class ContactModificationTest extends TestBase {
   @BeforeMethod
   public void ensurePreconditions(){
     app.goTo().grouppage();
-    if (!app.getGroupHelper().isThereGroup()
+    if (!app.group().isThereGroup()
             && !app.contact().isThereContact()) {
-      app.getGroupHelper().create(new GroupData().withName("Test1").withHeader("test2").withFooter("test3"));
+      app.group().create(new GroupData().withName("Test1").withHeader("test2").withFooter("test3"));
       app.contact().create(new Contactdata().withFirstname("Tanya").withLastname("Good").withGroup("Test1"), true);
     }
     else
-    if (app.getGroupHelper().isThereGroup()
+    if (app.group().isThereGroup()
             && !app.contact().isThereContact()) {
       app.contact().create(new Contactdata().withFirstname("Tanya").withLastname("Good").withGroup("Test1"), true);
     }
@@ -46,6 +46,7 @@ public class ContactModificationTest extends TestBase {
     //сохраняем старый модификатор
     app.contact().modify(contact);
     app.goTo().homepage();
+    assertThat(before.size(),equalTo(app.contact().сount()));
     Contacts after= app.contact().all();
 
     assertThat(before.size(),equalTo(after.size()));

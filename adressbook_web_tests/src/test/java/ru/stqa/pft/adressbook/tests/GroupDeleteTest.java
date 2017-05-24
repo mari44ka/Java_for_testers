@@ -19,8 +19,8 @@ public class GroupDeleteTest extends TestBase {
     @BeforeMethod
     public void esurePreconditions() {
         app.goTo().grouppage();
-        if (app.getGroupHelper().list().size()==0) {
-            app.getGroupHelper().create(new GroupData().withName("Test2").withHeader("test2").withFooter("test3")); //using fluent interface
+        if (app.group().list().size()==0) {
+            app.group().create(new GroupData().withName("Test2").withHeader("test2").withFooter("test3")); //using fluent interface
 
         }
     }
@@ -28,16 +28,17 @@ public class GroupDeleteTest extends TestBase {
     
     @Test
     public void testDeleteGroup() {
-        Groups before=app.getGroupHelper().all();
+        Groups before=app.group().all();
         GroupData deletedGroup = before.iterator().next();
 
-        //int before = app.getGroupHelper().getGroupCount();
+        //int before = app.getGroupHelper().сount();
         //int index=before.size()-1;
         app.goTo().grouppage();
-        app.getGroupHelper().delete(deletedGroup);
+        app.group().delete(deletedGroup);
         app.goTo().grouppage();
-        Groups after=app.getGroupHelper().all();
-        assertThat(after.size(),equalTo(before.size()-1));
+        assertThat(app.group().сount(),equalTo(before.size()-1));
+        Groups after=app.group().all();
+
 
 
         //before.remove(index); // переменная before теперь ссылается на старый список, в котором удален ненужный элемент

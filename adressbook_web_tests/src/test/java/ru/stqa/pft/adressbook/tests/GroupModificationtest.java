@@ -23,8 +23,8 @@ public class GroupModificationtest extends TestBase {
   @BeforeMethod
   public void esurePreconditions() {
     app.goTo().grouppage();
-    if (!app.getGroupHelper().isThereGroup()) {
-      app.getGroupHelper().create(new GroupData().withName("Test2").withHeader("test2").withFooter("test3"));
+    if (!app.group().isThereGroup()) {
+      app.group().create(new GroupData().withName("Test2").withHeader("test2").withFooter("test3"));
 
     }
   }
@@ -33,17 +33,18 @@ public class GroupModificationtest extends TestBase {
   @Test
   public void testGroupModification() {
     app.goTo().grouppage();
-    Groups before = app.getGroupHelper().all();
-    //int before=app.getGroupHelper().getGroupCount();
+    Groups before = app.group().all();
+    //int before=app.getGroupHelper().сount();
     GroupData modifiedGroup =before.iterator().next();
 
     GroupData group = new GroupData().withId(modifiedGroup.getId()).withName("Test1").withHeader("test3");
-    app.getGroupHelper().modify(group);
+    app.group().modify(group);
     app.goTo().grouppage();
+    assertThat(before.size(), equalTo(app.group().сount()));
 
-    Groups after = app.getGroupHelper().all();
-    //int after=app.getGroupHelper().getGroupCount();
-    assertThat(before.size(), equalTo(after.size()));
+    Groups after = app.group().all();
+    //int after=app.getGroupHelper().сount();
+
 
     assertThat(after, equalTo(before.without(modifiedGroup).withAdded(group)));
 

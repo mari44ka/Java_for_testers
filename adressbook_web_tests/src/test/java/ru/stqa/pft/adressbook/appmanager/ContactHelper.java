@@ -75,6 +75,10 @@ public class ContactHelper extends HelperBase {
     click(By.name("update"));
   }
 
+  public int сount() {
+    return wd.findElements(By.name("selected[]")).size();
+  }
+
 
   public void create(Contactdata contact, boolean b) {
     addNewContact();
