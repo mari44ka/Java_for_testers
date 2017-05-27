@@ -1,6 +1,5 @@
 package ru.stqa.pft.adressbook.tests;
 
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.adressbook.model.Contactdata;
@@ -8,9 +7,6 @@ import ru.stqa.pft.adressbook.model.Contacts;
 import ru.stqa.pft.adressbook.model.GroupData;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
-
-import java.util.List;
-import java.util.Set;
 
 /**
  * Created by Mari on 4/18/17.
