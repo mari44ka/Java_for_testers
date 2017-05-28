@@ -7,7 +7,14 @@ public class Contactdata {
   private String homephone;
   private String workphone;
   private String mobilephone;
+  private String allphones;
   private String address;
+
+  public void setAllemails(String allemails) {
+    this.allemails = allemails;
+  }
+
+  private String allemails;
   private String email;
   private String email2;
   private String email3;
@@ -75,6 +82,11 @@ public class Contactdata {
     return result;
   }
 
+  public Contactdata withAllemails(String allemails) {
+    this.allemails = allemails;
+    return this;
+  }
+
   public Contactdata withEmail2(String email2) {
     this.email2 = email2;
     return this;
@@ -87,6 +99,11 @@ public class Contactdata {
 
   public Contactdata withAddress(String address) {
     this.address = address;
+    return this;
+  }
+
+  public Contactdata withAllphones(String allphones) {
+    this.allphones = allphones;
     return this;
   }
 
@@ -183,6 +200,10 @@ public class Contactdata {
     return mobilephone;
   }
 
+  public String getAllphones() {
+    return allphones;
+  }
+
   public String getAddress() {
     return address;
   }
@@ -199,5 +220,9 @@ public class Contactdata {
   public String getEmail() {
 
     return email;
+  }
+
+  public String getAllemails() {
+    return allemails;
   }
 }
