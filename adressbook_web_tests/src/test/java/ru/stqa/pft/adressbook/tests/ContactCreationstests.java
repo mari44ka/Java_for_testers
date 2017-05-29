@@ -5,12 +5,14 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.adressbook.model.Contactdata;
 import ru.stqa.pft.adressbook.model.Contacts;
 
+import java.io.File;
+
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ContactCreationstests extends TestBase{
 
-  @Test
+  @Test(enabled = false)
   public void testCreateContact() {
     app.goTo().homepage();
     Contacts before=app.contact().all();
@@ -33,7 +35,26 @@ public class ContactCreationstests extends TestBase{
     //contact.withId(after.stream().max((Comparator<Contactdata>) (o1, o2) -> Integer.compare(o1.getId(),o2.getId())).get().getId());
 
     assertThat(after, equalTo(before.withAdded(contact.
-            withId(after.stream().mapToInt((c)->c.getId()).max().getAsInt()))));
+            withId(after.stream().mapToInt((c)->c.getId()).max().getAsInt()))));}
+
+
+  @Test(enabled = false)
+  public void testContactCreationWithPhoto(){
+      app.goTo().homepage();
+      app.contact().addNewContact();
+      File photo = new File("src/test/resources/Newyear.jpg");
+      app.contact().fillForm(new Contactdata().withFirstname("Yulia").withLastname("Goody").withPhoto(photo),true);
+      app.contact().submitContactform();
+
+    }
+  @Test
+  public void testCurrentDir(){
+    File currentDir = new File("."); // текущая директория
+    System.out.println(currentDir.getAbsolutePath());
+    File photo = new File("src/test/resources/.Newyear.JPG.icloud");
+    System.out.println(photo.getAbsolutePath());
+    System.out.println(photo.exists()); // проверка существования фото
+  }
   }
 
-}
+
