@@ -38,23 +38,23 @@ public class ContactCreationstests extends TestBase{
             withId(after.stream().mapToInt((c)->c.getId()).max().getAsInt()))));}
 
 
-  @Test(enabled = false)
+  @Test
   public void testContactCreationWithPhoto(){
       app.goTo().homepage();
       app.contact().addNewContact();
-      File photo = new File("src/test/resources/Newyear.jpg");
-      app.contact().fillForm(new Contactdata().withFirstname("Yulia").withLastname("Goody").withPhoto(photo),true);
+      File photo = new File("src/test/resources/Newyear.JPG");
+      app.contact().fillForm(new Contactdata().withFirstname("Yulia").withLastname("Goody").withPhoto(photo).withGroup("Test1"),true);
       app.contact().submitContactform();
 
     }
-  @Test
-  public void testCurrentDir(){
-    File currentDir = new File("."); // текущая директория
-    System.out.println(currentDir.getAbsolutePath());
-    File photo = new File("src/test/resources/.Newyear.JPG.icloud");
-    System.out.println(photo.getAbsolutePath());
-    System.out.println(photo.exists()); // проверка существования фото
-  }
+ // @Test
+ // public void testCurrentDir(){
+  //  File currentDir = new File("."); // текущая директория
+   // System.out.println(currentDir.getAbsolutePath());
+    //File photo = new File("src/test/resources/.Newyear.JPG.icloud");
+    //System.out.println(photo.getAbsolutePath());
+   // System.out.println(photo.exists()); // проверка существования фото
+  //}
   }
 
 
