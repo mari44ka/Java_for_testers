@@ -9,6 +9,7 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.adressbook.model.GroupData;
 import ru.stqa.pft.adressbook.model.Groups;
 
+import java.io.*;
 import java.util.*;
 
 import static org.hamcrest.CoreMatchers.*;
@@ -18,12 +19,17 @@ import static org.testng.Assert.assertEquals;
 public class GroupCreationtests extends TestBase {
 
   @DataProvider
-  public Iterator<Object[]> validGroups(){
+  public Iterator<Object[]> validGroups() throws IOException {
     List<Object[]>list = new ArrayList<Object[]>();
-    list.add(new Object[]{new GroupData().withName("test1").withHeader("header1").withFooter("footer1")});
-    list.add(new Object[]{new GroupData().withName("test2").withHeader("header2").withFooter("footer2")});
-    list.add(new Object[]{new GroupData().withName("test3").withHeader("header3").withFooter("footer3")});
+    BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/groups.csv")));
+    String line = reader.readLine();
+    while (line!= null){
+      String[] split = line.split(";");
+      list.add(new Object[]{new GroupData().withName(split[0]).withFooter(split[2]).withHeader(split[1])});
+      line = reader.readLine();
+    }
     return list.iterator();
+
   }
 
 
