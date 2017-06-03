@@ -1,5 +1,6 @@
 package ru.stqa.pft.adressbook.tests;
 
+import com.thoughtworks.xstream.XStream;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
@@ -11,6 +12,7 @@ import ru.stqa.pft.adressbook.model.Groups;
 
 import java.io.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
@@ -20,15 +22,17 @@ public class GroupCreationtests extends TestBase {
 
   @DataProvider
   public Iterator<Object[]> validGroups() throws IOException {
-    List<Object[]>list = new ArrayList<Object[]>();
-    BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/groups.csv")));
+    BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/groups.xml")));
+    String xml = " ";
     String line = reader.readLine();
     while (line!= null){
-      String[] split = line.split(";");
-      list.add(new Object[]{new GroupData().withName(split[0]).withFooter(split[2]).withHeader(split[1])});
-      line = reader.readLine();
+      xml+=line;
+      line =reader.readLine();
     }
-    return list.iterator();
+    XStream xstream = new XStream();
+    xstream.processAnnotations(GroupData.class);
+    List<GroupData> groups = (List<GroupData>) xstream.fromXML(xml);
+    return groups.stream().map((g)->new Object[] {g}).collect(Collectors.toList()).iterator();
 
   }
 

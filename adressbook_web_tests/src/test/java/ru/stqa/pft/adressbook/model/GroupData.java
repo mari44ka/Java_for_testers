@@ -1,6 +1,10 @@
 package ru.stqa.pft.adressbook.model;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
+@XStreamAlias("group") //чтобы не было видно тега, меняем его на групс
 public class GroupData {
+  @XStreamOmitField
   private  int id = Integer.MAX_VALUE; // добавляем, чтобы можно было сравнивать группы при их модификации( при проверке)
   private  String name;
   private  String header;
