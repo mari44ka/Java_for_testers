@@ -6,6 +6,7 @@ import com.beust.jcommander.ParameterException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.thoughtworks.xstream.XStream;
+import ru.stqa.pft.adressbook.model.Contactdata;
 import ru.stqa.pft.adressbook.model.GroupData;
 
 import java.io.File;
@@ -15,11 +16,11 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Mari on 5/29/17.
- */
-public class GroupDataGenerator {
 
+/**
+ * Created by Mari on 5/30/17.
+ */
+public class ContactDataGenerator {
   @Parameter(names = "-c",description = "Group count")
   public int count;
 
@@ -29,8 +30,10 @@ public class GroupDataGenerator {
   @Parameter(names = "-d",description ="Data format")
   public String format;
 
+
   public static void main (String[] args) throws IOException {
-    GroupDataGenerator generator = new GroupDataGenerator();
+
+   ContactDataGenerator generator = new ContactDataGenerator();
     JCommander jCommander = new JCommander(generator);
 
     try{
@@ -41,60 +44,61 @@ public class GroupDataGenerator {
     }
     generator.run();
 
-  }
+    }
 
   private void run() throws IOException {
-    List<GroupData> groups = generateGroups(count);
+    List<Contactdata> contacts = generateContacts(count);
     if (format.equals("csv")){
-      saveAsCsv(groups,new File(file));
+      saveAsCsv(contacts,new File(file));
     }
     else if(format.equals("xml")){
-      saveAsXml(groups,new File(file));
+      saveAsXml(contacts,new File(file));
     }
     else if(format.equals("json")){
-      saveAsJson(groups,new File(file));
+      saveAsJson(contacts,new File(file));
     }
     else{
       System.out.println("Unrecognized format" + format);
     }
   }
 
-  private void saveAsJson(List<GroupData> groups, File file) throws IOException {
+  private void saveAsJson(List<Contactdata> contacts, File file) throws IOException {
     Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
-    String json = gson.toJson(groups);
+    String json = gson.toJson(contacts);
     Writer writer = new FileWriter(file);
     writer.write(json);
     writer.close();
 
   }
 
-  private void saveAsXml(List<GroupData> groups, File file) throws IOException {
+  private void saveAsXml(List<Contactdata> contacts, File file) throws IOException {
     XStream xstream = new XStream();
-    xstream.processAnnotations(GroupData.class);
-    String xml = xstream.toXML(groups); //change name to group
+    xstream.processAnnotations(Contactdata.class);
+    String xml = xstream.toXML(contacts); //change name to group
     Writer writer = new FileWriter(file);
     writer.write(xml);
     writer.close();
-
   }
 
-  private  void saveAsCsv(List<GroupData> groups, File file) throws IOException {
+  private void saveAsCsv(List<Contactdata> contacts, File file) throws IOException {
     System.out.println(new File(".").getAbsolutePath());
     Writer writer = new FileWriter(file);
-    for (GroupData group : groups){
-      writer.write(String.format("%s;%s;%s\n",group.getName(),group.getHeader(),group.getFooter()));
-    }
+    for (Contactdata contact : contacts){
+      writer.write(String.format("%s;%s;%s\n",contact.getFirstname(),contact.getLastname(),contact.getAddress()));
+      }
     writer.close();
-  }
-
-  private static List<GroupData> generateGroups(int count) {
-    List<GroupData> groups = new ArrayList<GroupData>();
-    for (int i=0; i < count; i++){
-      groups.add(new GroupData().withName(String.format("Test %s",i)).withHeader(String.format("Test %s",i)).
-              withFooter(String.format("Test %s",i)));
     }
-    return groups;
+
+  private static List<Contactdata> generateContacts(int count) {
+    List<Contactdata> contacts = new ArrayList<Contactdata>();
+    for (int i = 0; i < count; i++){
+      contacts.add(new Contactdata().withFirstname(String.format("Firstname%s",i)).withLastname(String.format("Lastname%s",i)).
+              withAddress(String.format("Address%s",i)));
+    }
+    return contacts;
+    }
+
+
   }
 
 
-}

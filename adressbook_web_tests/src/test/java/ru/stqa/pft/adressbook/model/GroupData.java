@@ -1,13 +1,18 @@
 package ru.stqa.pft.adressbook.model;
 
+import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 @XStreamAlias("group") //чтобы не было видно тега, меняем его на групс
 public class GroupData {
   @XStreamOmitField
   private  int id = Integer.MAX_VALUE; // добавляем, чтобы можно было сравнивать группы при их модификации( при проверке)
+  @Expose
   private  String name;
+  @Expose
   private  String header;
+  @Expose
+  private  String footer;
 
   public GroupData withName(String name) {
     this.name = name;
@@ -24,7 +29,7 @@ public class GroupData {
     return this;
   }
 
-  private  String footer;
+
 
   @Override
   public boolean equals(Object o) {
