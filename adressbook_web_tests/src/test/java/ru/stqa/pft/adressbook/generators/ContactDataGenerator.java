@@ -21,7 +21,7 @@ import java.util.List;
  * Created by Mari on 5/30/17.
  */
 public class ContactDataGenerator {
-  @Parameter(names = "-c",description = "Group count")
+  @Parameter(names = "-c",description = "Contact count")
   public int count;
 
   @Parameter(names = "-f",description ="Target file")
@@ -65,9 +65,9 @@ public class ContactDataGenerator {
   private void saveAsJson(List<Contactdata> contacts, File file) throws IOException {
     Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
     String json = gson.toJson(contacts);
-    Writer writer = new FileWriter(file);
+    try(Writer writer = new FileWriter(file);){
     writer.write(json);
-    writer.close();
+    }
 
   }
 
@@ -75,19 +75,19 @@ public class ContactDataGenerator {
     XStream xstream = new XStream();
     xstream.processAnnotations(Contactdata.class);
     String xml = xstream.toXML(contacts); //change name to group
-    Writer writer = new FileWriter(file);
-    writer.write(xml);
-    writer.close();
+    try(Writer writer = new FileWriter(file);){
+    writer.write(xml);}
+
   }
 
   private void saveAsCsv(List<Contactdata> contacts, File file) throws IOException {
     System.out.println(new File(".").getAbsolutePath());
-    Writer writer = new FileWriter(file);
-    for (Contactdata contact : contacts){
-      writer.write(String.format("%s;%s;%s\n",contact.getFirstname(),contact.getLastname(),contact.getAddress()));
+    try (Writer writer = new FileWriter(file);) {
+      for (Contactdata contact : contacts) {
+        writer.write(String.format("%s;%s;%s\n", contact.getFirstname(), contact.getLastname(), contact.getAddress()));
       }
-    writer.close();
     }
+  }
 
   private static List<Contactdata> generateContacts(int count) {
     List<Contactdata> contacts = new ArrayList<Contactdata>();
