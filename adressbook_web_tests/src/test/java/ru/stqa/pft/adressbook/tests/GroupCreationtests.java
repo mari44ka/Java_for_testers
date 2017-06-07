@@ -5,6 +5,8 @@ import com.google.gson.reflect.TypeToken;
 import com.thoughtworks.xstream.XStream;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -21,6 +23,8 @@ import static org.hamcrest.MatcherAssert.*;
 import static org.testng.Assert.assertEquals;
 
 public class GroupCreationtests extends TestBase {
+
+
 
   @DataProvider
   public Iterator<Object[]> validGroupsFromXml() throws IOException {
@@ -56,6 +60,7 @@ public class GroupCreationtests extends TestBase {
 
   @Test(dataProvider ="validGroupsFromJson")
   public void testGroupCreation(GroupData group) {
+
     app.goTo().grouppage();
     Groups before = app.group().all(); //теперь работаем с множеством, а не списками
     //List<GroupData> before = app.getGroupHelper().list(); // переменная before поменялось,
